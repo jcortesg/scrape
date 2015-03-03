@@ -9,9 +9,23 @@ var driverCtrl = require('../controllers/drivers');
 /*GET scraping Uber */
 
 router.get('/',function(req, res, next){
-   scrape.getData( function (err, data){
-       console.log("Callback")
+   var scraping = scrape.getData(function (err, data){
+       var _len = data.length;
+       for(var _i = 0; _i < _len; _i++){
+           console.log(_len);
+           data[_i].driver.forEach(function(driver){
+            console.log(driver.conductor);
+            var req = {
+                full: driver.conductor
+            }
+            driverCtrl.create(req, function(err, res){
+                console.log(res);
+            });
+           }); 
+       }
+       
    });
 });
+   
 
 module.exports = router;

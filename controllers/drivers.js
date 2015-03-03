@@ -6,16 +6,15 @@ exports.findAllTVShows = function(req, res) {
 
 };
 //POST
-exports.addDriver = function(req, res) {
+exports.create = function(req, res) {
     console.log('POST');
-    console.log(req.body);
-
+    console.log(req);
     var driver = new Driver({
+        full_name: req.full,
         name: req.name
     }); 
     driver.save(function(err,driver){
         if(err) return res.send(500, err.message);
-        res.status(200);
     });
     
 };
